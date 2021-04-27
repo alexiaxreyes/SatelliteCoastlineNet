@@ -99,14 +99,15 @@ def deep_model_L2D():
 
 # define the very deep model with L2 regularization and dropout
 def very_deep_model_L2D():
-	# create model
+   # Create model
     model = Sequential()
     model.add(Dense(512, kernel_regularizer= regularizers.l2(0.001), input_dim=Ndims, kernel_initializer='normal', activation='relu'))
     model.add(Dense(256, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
     model.add(Dropout(DropRate))
     model.add(Dense(128, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
     model.add(Dense(128, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
-    model.add(BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None))
+    model.add(BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones',  		   
+    moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None))
     model.add(Dense(64, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
     model.add(Dense(32, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
     model.add(Dropout(DropRate))
@@ -122,11 +123,13 @@ def very_deep_model_L2D():
     return model
 ```
 ### Preprocessed Satellite Images with QGIS 
-We learned that processing multi-spectral images/panachromatic images need to be properly cropped,georeferenced, and classified for training and validation data. We received data products for Kaktovik and Wainwright from 1950-2019 and the data preparation took around 10-12 hours of supervised manual labor. Furthermore, the following training/validation data needs to be verified with the Geophysical Institute Permafrost Laboratory. 
+We learned that processing multi-spectral images/panachromatic images need to be properly cropped,georeferenced, and classified for training and validation data. We received data products for Kaktovik and Wainwright from 1950-2019 and the data preparation took around 10-12 hours of supervised manual labor. Furthermore, the following training/validation data needs to be verified with the [Geophysical Institute Permafrost Laboratory](https://permafrost.gi.alaska.edu/). 
 
 ### Takeaways 
 1. Future implementation with large data sets require low resolution (ex. [Sentinel-2](https://eos.com/find-satellite/sentinel-2/) 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
 2. Supervised CNN requires experience with ArcGIS/QGIS (10-12 hours)
+3. TrainCNN.py will require supervised validation of accuracy/loss.
+[](Training_validation_loss_output.png)
 
 ### References
 [1] https://i.ytimg.com/vi/A5VoTgwEsWE/maxresdefault.jpg
