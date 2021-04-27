@@ -28,6 +28,16 @@ After installing dependencies, the application can be tested with the instructio
 In order to generate coastline extraction results with higher resolution, [WorldView-2 Satellite](https://www.satimagingcorp.com/satellite-sensors/worldview-2/) image products were used to identify the boundary between land and open water for Kaktovik and Wainwright, Alaska. We recommend that the data be structured as: CoastlineName_Number.jpg. The number must be at least 4 digits (CoastlineName_0022.jpg), but can be more if nessesary (exampe 5-digit, CoastlineName_12345.jpg). The associated classification is expected to have the same filename but with a prefix of 'CSC_' and a tif format (CSC_CoastlineName_0022.tif). The default number of classes in the code and in the label data found on the repository is 2: water and land. Users can alter the number of classes for other studies as needed. However, all the code and models function by tiling the input imagery in sub-images of 50x50 pixels.
 
 #### QGIS and ArcGIS Data Symbology 
+Developing our training data involved conversion of a standard satellite TIFF image and altering the symbology in such a way that it is easier to classify and parse the geometry of the coastline. The entirety of our training data development was performed in QGIS, an open source geographic information system application that supports the viewing, editing, and analysis of geospatial data. In QGIS, the uneditied TIFF image from a particular location and year provided from Worldview served as our input image. The main outputs of our QGIS algorithm are a TIFF image with a binary classification of "water" and "land", and the coordinates of the coastline from the TIFF image as a GEOJSON file. The steps to complete each set of training data are as follows:
+
+1. Load TIFF image from PIPER Imagery as a raster layer
+2. Clip the image to reduce the possiblity of excess noise and unwanted features
+3. Change the symbology by grayscaling the image
+4. Apply an expression to classify the image into two separate pixel categories denoting water and land
+*insert pic*
+5. Vectorize the image into a shapefile and select the main feature (Kaktovik or Wainwright)
+6. Use the "delete holes" functionality to remove all classifications of water within the main feature. This helps reduce the amount of data we have and makes it easier to deliniate the coastline. Image below displays the final image:
+7. Export the coordinates of the entirety of the feature as a GEOJSON file.
 ![](training_data_example.png)
 
 #### Image Loading and Data Preparation Section
