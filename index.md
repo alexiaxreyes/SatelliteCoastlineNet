@@ -142,7 +142,7 @@ We learned that processing multi-spectral images/panachromatic images need to be
 1. Future implementation with large data sets require low resolution (ex. [Sentinel-2](https://eos.com/find-satellite/sentinel-2/) 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
 2. Supervised CNN requires experience with ArcGIS/QGIS (10-12 hours)
 3. TrainCNN.py will require supervised validation of accuracy/loss.
-![](Training_validation_loss_output.png)
+![](Training_validation_loss_output.PNG)
 
 ### References
 [1] https://i.ytimg.com/vi/A5VoTgwEsWE/maxresdefault.jpg
