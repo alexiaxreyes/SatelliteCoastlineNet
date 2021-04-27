@@ -35,7 +35,7 @@ Developing our training data involved conversion of a standard satellite TIFF im
 3. Change the symbology by grayscaling the image
 4. Apply an expression to classify the image into two separate pixel categories denoting water and land
 
-![](kaktovik 2020 tif screenshot.png) 
+![](kaktovik2020screenshot.png)
 _Classified image of example TIFF file_[2]
 
 5. Vectorize the image into a shapefile and select the main feature (Kaktovik or Wainwright)
