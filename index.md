@@ -36,6 +36,7 @@ Images (.jpg) and Class Label Masks (.tif) are extracted from the TRAIN folder.
 2. Observes classification mask, when tile is 90% classified, produces a label vector value, zero if less than 90%
 3. Feeds the following into the Keras base model convnet, level of trainaibility of the convnet can be set by the user (supervised)
 4. Accuray,loss checks, epochs are reviewed and when tuning is satisfactory, the model can be saved for the CNN 
+
 ```Python
 #Glob list fo all jpg images, get unique names form the total list
 img = glob.glob(TrainPath + "*.jpg")
@@ -48,6 +49,7 @@ class_img = glob.glob(TrainPath + "CSC_*.tif*")
 After data preparation, the script TrainCNN.py can be used to train the Keras H5 base model architecture with pretrained weights as downloaded. User options are at the start. Elements marked 'Path' or 'Empty' need to be edited. It is recommended to set the ModelTuning variable to True and run the tuning procedure for the CNN. This will output a figure and the correct number of tuning epochs can be set as the point where the loss and accuracy of the validation data begin to diverge from the loss and accuracy of the training data. Once this is established, the script must be run again with ModelTuning set to False and the correct value for Tuning. This will save the Keras model with a .h5 extension and it will also save a class key as a small csv file. Once these options are edited in the code no switches are required. 
 
 #### Convnet Section
+
 ```Python
 #Setup the convnet and add dense layers
 model = models.Sequential()
@@ -73,6 +75,7 @@ model.fit(ImageTensor, LabelTensor, batch_size=BatchSize, epochs=TrainingEpochs,
 After development of trained CNN model, CSC performance can be evaluated with CnnSupervisedClassification.py. The images to test must follow the same naming convention and all have an existing set of manual labels as used in the CNN training phase above. Again variables currently set to 'Path' or 'Empty' must be edited in the code. The CSC is currently set to use a Multilayer Perceptron (MLP) to perform the phase 2, pixel-level, classification. In this phase, the CNN classification output for a specific image will be used as training data for that specific image. The script will execute and output performance metrics for each image. csv files with a CNN_ prefix give performance metrics for the CNN model with F1 scores and support (# of pixels) for each class. MLP_ files give the same metrics for the final CSC result after the application of the MLP. A 4-part figure will also be output showing the original image, the existing class labels, the CNN classification and the final CSC classification labelled either MLP. Optionally, a saved class raster can also be saved to disk for each processed image.
 
 #### CnnSupervisedClassification Dense classifiers
+
 ```Python
 #Define deep the model with L2 regularization and dropout
 def deep_model_L2D():
@@ -129,7 +132,7 @@ We learned that processing multi-spectral images/panachromatic images need to be
 1. Future implementation with large data sets require low resolution (ex. [Sentinel-2](https://eos.com/find-satellite/sentinel-2/) 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
 2. Supervised CNN requires experience with ArcGIS/QGIS (10-12 hours)
 3. TrainCNN.py will require supervised validation of accuracy/loss.
-[](Training_validation_loss_output.PNG)
+![](Training_validation_loss_output.png)
 
 ### References
 [1] https://i.ytimg.com/vi/A5VoTgwEsWE/maxresdefault.jpg
