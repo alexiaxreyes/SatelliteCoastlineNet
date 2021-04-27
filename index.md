@@ -37,10 +37,10 @@ Images (.jpg) and Class Label Masks (.tif) are extracted from the TRAIN folder.
 3. Feeds the following into the Keras base model convnet, level of trainaibility of the convnet can be set by the user (supervised)
 4. Accuray,loss checks, epochs are reviewed and when tuning is satisfactory, the model can be saved for the CNN 
 ```Python
-# Glob list fo all jpg images, get unique names form the total list
+#Glob list fo all jpg images, get unique names form the total list
 img = glob.glob(TrainPath + "*.jpg")
 
-# Get training class images
+#Get training class images
 class_img = glob.glob(TrainPath + "CSC_*.tif*")
 ```
 
@@ -74,9 +74,9 @@ After development of trained CNN model, CSC performance can be evaluated with Cn
 
 #### CnnSupervisedClassification Dense classifiers
 ```Python
-# define deep the model with L2 regularization and dropout
+#Define deep the model with L2 regularization and dropout
 def deep_model_L2D():
-    # Create model
+    #Create model
     model = Sequential()
     model.add(Dense(256, kernel_regularizer= regularizers.l2(0.001), input_dim=Ndims, kernel_initializer='normal', activation='relu'))
     model.add(Dropout(0.5))
@@ -93,13 +93,13 @@ def deep_model_L2D():
     #Tune an optimizer
     Optimizer = optimizers.Adam(lr=LearningRate, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
 
-    # Compile model
+    #Compile model
     model.compile(loss='sparse_categorical_crossentropy', optimizer=Optim, metrics = ['accuracy'])
     return model
 
-# define the very deep model with L2 regularization and dropout
+#Define the very deep model with L2 regularization and dropout
 def very_deep_model_L2D():
-   # Create model
+   #Create model
     model = Sequential()
     model.add(Dense(512, kernel_regularizer= regularizers.l2(0.001), input_dim=Ndims, kernel_initializer='normal', activation='relu'))
     model.add(Dense(256, kernel_regularizer= regularizers.l2(0.001), kernel_initializer='normal', activation='relu'))
@@ -118,7 +118,7 @@ def very_deep_model_L2D():
     #Tune an optimizer
     Optimizer = optimizers.Adam(lr=LearningRate, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
 
-    # Compile model
+    #Compile model
     model.compile(loss='sparse_categorical_crossentropy', optimizer=Optim, metrics = ['accuracy'])
     return model
 ```
@@ -129,7 +129,7 @@ We learned that processing multi-spectral images/panachromatic images need to be
 1. Future implementation with large data sets require low resolution (ex. [Sentinel-2](https://eos.com/find-satellite/sentinel-2/) 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
 2. Supervised CNN requires experience with ArcGIS/QGIS (10-12 hours)
 3. TrainCNN.py will require supervised validation of accuracy/loss.
-[](Training_validation_loss_output.png)
+[](Training_validation_loss_output.PNG)
 
 ### References
 [1] https://i.ytimg.com/vi/A5VoTgwEsWE/maxresdefault.jpg
