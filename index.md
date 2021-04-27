@@ -28,6 +28,7 @@ After installing dependencies, the application can be tested with the instructio
 In order to generate coastline extraction results with higher resolution, [WorldView-2 Satellite](https://www.satimagingcorp.com/satellite-sensors/worldview-2/) image products were used to identify the boundary between land and open water for Kaktovik and Wainwright, Alaska. We recommend that the data be structured as: CoastlineName_Number.jpg. The number must be at least 4 digits (CoastlineName_0022.jpg), but can be more if nessesary (exampe 5-digit, CoastlineName_12345.jpg). The associated classification is expected to have the same filename but with a prefix of 'CSC_' and a tif format (CSC_CoastlineName_0022.tif). The default number of classes in the code and in the label data found on the repository is 2: water and land. Users can alter the number of classes for other studies as needed. However, all the code and models function by tiling the input imagery in sub-images of 50x50 pixels.
 
 #### QGIS and ArcGIS Data Symbology 
+![](training_data_example.png)
 
 #### Image Loading and Data Preparation Section
 Images (.jpg) and Class Label Masks (.tif) are extracted from the TRAIN folder.  
@@ -42,8 +43,6 @@ img = glob.glob(TrainPath + "*.jpg")
 # Get training class images
 class_img = glob.glob(TrainPath + "CSC_*.tif*")
 ```
-
-![](training_data_example.png)
 
 ### Convolutional Neural Network (CNN) Training 
 After data preparation, the script TrainCNN.py can be used to train the Keras H5 base model architecture with pretrained weights as downloaded. User options are at the start. Elements marked 'Path' or 'Empty' need to be edited. It is recommended to set the ModelTuning variable to True and run the tuning procedure for the CNN. This will output a figure and the correct number of tuning epochs can be set as the point where the loss and accuracy of the validation data begin to diverge from the loss and accuracy of the training data. Once this is established, the script must be run again with ModelTuning set to False and the correct value for Tuning. This will save the Keras model with a .h5 extension and it will also save a class key as a small csv file. Once these options are edited in the code no switches are required. 
@@ -63,7 +62,7 @@ model.add(layers.Dense(LabelTensor.shape[1], activation='softmax'))
 Optimizer = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=True)
 
 #Compile and display the model          
-model.compile(optimizer=Optim,loss='categorical_crossentropy', metrics=['acc'])
+model.compile(optimizer=Optimizer,loss='categorical_crossentropy', metrics=['acc'])
 model.summary()
 
 #Fit all the data for transfer learning and train the final CNN
@@ -77,7 +76,7 @@ After development of trained CNN model, CSC performance can be evaluated with Cn
 ```Python
 # define deep the model with L2 regularization and dropout
 def deep_model_L2D():
-	# create model
+    # Create model
     model = Sequential()
     model.add(Dense(256, kernel_regularizer= regularizers.l2(0.001), input_dim=Ndims, kernel_initializer='normal', activation='relu'))
     model.add(Dropout(0.5))
@@ -123,10 +122,10 @@ def very_deep_model_L2D():
     return model
 ```
 ### Preprocessed Satellite Images with QGIS 
-We learned that processing multi-spectral images/panachromatic images need to be properly cropped,georeferenced, and classified for training and validation data. We received data products for Kaktovi and Wainwright from 1950-2019 and the data preparation took around 10-12 hours of supervised manual labor. Furthermore, the following training/validation data needs to be verified with the Geophysical Institute Permafrost Laboratory. 
+We learned that processing multi-spectral images/panachromatic images need to be properly cropped,georeferenced, and classified for training and validation data. We received data products for Kaktovik and Wainwright from 1950-2019 and the data preparation took around 10-12 hours of supervised manual labor. Furthermore, the following training/validation data needs to be verified with the Geophysical Institute Permafrost Laboratory. 
 
 ### Takeaways 
-1. Future implementation with large data sets require low resolution (ex. Sentinel 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
+1. Future implementation with large data sets require low resolution (ex. [Sentinel-2](https://eos.com/find-satellite/sentinel-2/) 10m), but don't capture erosion rates compared to WorldView-2 high resolution data products received.
 2. Supervised CNN requires experience with ArcGIS/QGIS (10-12 hours)
 
 ### References
