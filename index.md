@@ -4,7 +4,7 @@ You can use the [editor on GitHub](https://github.com/alexiaxreyes/SatelliteCoas
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-![](Degredation.jfif)
+![](http://serc.carleton.edu/images/NAGTWorkshops/oceanography/big_sur_coastline.jpg)
 
 ## Satellite Coastline Network 
 Description: Application for a CNN-Supervised Classification of remotely sensed imagery with deep learning. 
