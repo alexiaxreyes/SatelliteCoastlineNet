@@ -34,11 +34,14 @@ Developing our training data involved conversion of a standard satellite TIFF im
 2. Clip the image to reduce the possiblity of excess noise and unwanted features
 3. Change the symbology by grayscaling the image
 4. Apply an expression to classify the image into two separate pixel categories denoting water and land
-*insert pic*
+
+![](kaktovik 2020 tif screenshot.png) 
+_Classified image of example TIFF file_[2]
 5. Vectorize the image into a shapefile and select the main feature (Kaktovik or Wainwright)
 6. Use the "delete holes" functionality to remove all classifications of water within the main feature. This helps reduce the amount of data we have and makes it easier to deliniate the coastline. Image below displays the final image:
 7. Export the coordinates of the entirety of the feature as a GEOJSON file.
 ![](training_data_example.png)
+_Isolated land feature with coastline as main land/water separation_[3]
 
 #### Image Loading and Data Preparation Section
 Images (.jpg) and Class Label Masks (.tif) are extracted from the TRAIN folder.  
