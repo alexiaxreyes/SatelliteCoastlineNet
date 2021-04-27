@@ -29,7 +29,7 @@ In order to generate coastline extraction results with higher resolution, [World
 #### Manipulating our training data
 yooooooooooooo
 
-![](http://serc.carleton.edu/images/NAGTWorkshops/oceanography/big_sur_coastline.jpg)
+![](training_data_example.png)
 
 ### Convolutional Neural Network (CNN) Training 
 After data preparation, the script TrainCNN.py can be used to train the Keras H5 base model architecture with pretrained weights as downloaded. User options are at the start. Elements marked 'Path' or 'Empty' need to be edited. It is recommended to set the ModelTuning variable to True and run the tuning procedure for the CNN. This will output a figure and the correct number of tuning epochs can be set as the point where the loss and accuracy of the validation data begin to diverge from the loss and accuracy of the training data. Once this is established, the script must be run again with ModelTuning set to False and the correct value for Tuning. This will save the Keras model with a .h5 extension and it will also save a class key as a small csv file. Once these options are edited in the code no switches are required. 
